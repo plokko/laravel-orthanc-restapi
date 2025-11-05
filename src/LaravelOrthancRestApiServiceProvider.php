@@ -16,7 +16,7 @@ class LaravelOrthancRestApiServiceProvider extends ServiceProvider
         //-- Publish config file --//
         $this->publishes([
             __DIR__ . '/../config/config.php' => config_path('laravel-orthanc-restapi.php'),
-        ], 'config');
+        ], 'laravel-orthanc-restapi:config');
         /*//--- Console commands ---///
         if ($this->app->runningInConsole())
         {

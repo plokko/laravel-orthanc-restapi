@@ -55,3 +55,6 @@ You can publish default configuration file with the command:
 ```bash
 php artisan vendor:publish --tag=laravel-orthanc-restapi:config
 ```
+
+You should now see a *laravel-orthanc-restapi.php* file under your *config* folder.
+

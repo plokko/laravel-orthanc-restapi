@@ -66,4 +66,11 @@ abstract class BaseEntityAccessor
 
         return $response->json();
     }
+
+    public static function orthancSha1(string|array $value): string
+    {
+        $sha1 = sha1(is_array($value) ? implode('|', $value) : $value);
+
+        return implode('-', str_split($sha1, 8));
+    }
 }

@@ -29,4 +29,19 @@ class InstancesAccessor extends BaseEntityAccessor
 
         $response->throw();
     }
+
+    /**
+     * Instances are identified as the SHA-1 hash of the concatenation of their PatientID tag (0010,0020), their StudyInstanceUID tag (0020,000d), their SeriesInstanceUID tag (0020,000e), and their SOPInstanceUID tag (0008,0018).
+     *
+     * @see https://orthanc.uclouvain.be/book/faq/orthanc-ids.html
+     *
+     * @param  string  $patientId  Patient id, ex: "RIS-12345" (tag (0010,0020))
+     * @param  string  $studyInstanceUID  StudyInstanceUID, ex '1.2.3.1.4.1.12345.1.1.10.123....'
+     * @param  string  $seriesInstanceUID  SeriesInstanceUID, DICOM tag (0020,000e).
+     * @param  string  $sopInstanceUID  SeriesInstanceUID, DICOM tag (0008,0018).
+     */
+    public function calculateOrthancIdentifier(string $patientId, string $studyInstanceUID, string $seriesInstanceUID, string $sopInstanceUID): string
+    {
+        return self::orthancSha1([$patientId, $studyInstanceUID, $seriesInstanceUID, $sopInstanceUID]);
+    }
 }

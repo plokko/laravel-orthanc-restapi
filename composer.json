@@ -1,0 +1,28 @@
+{
+    "name": "plokko/laravel-orthanc-restapi",
+    "description": "Laravel Orthanc REST API integration",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Plokko\\LaravelOrthancRestApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Francesco Pellerone"
+        }
+    ],
+    "require": {
+        "plokko/dcmtk-php": "*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Plokko\\LaravelOrthancRestApi\\LaravelOrthancRestApiServiceProvider"
+            ],
+            "aliases": {
+                "OrthancApi": "Plokko\\LaravelOrthancRestApi\\Facades\\OrthancApi"
+            }
+        }
+    }
+}

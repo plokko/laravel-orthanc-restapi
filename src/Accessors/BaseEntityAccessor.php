@@ -13,32 +13,51 @@ abstract class BaseEntityAccessor
     ) {}
 
     /**
+     * Catch 404 errors from API and return false.
+     *
+     * @return bool true if successfull, false if not found. Throws exception in other cases
+     **/
+    protected function handle404Response($response): bool
+    {
+        if ($response->successful()) {
+            return true;
+        }
+        if ($response->status() !== 404) {
+            $response->throw();
+        }
+
+        return false;
+    }
+
+    /**
      * Anonymize entity
      *
      * @see https://orthanc.uclouvain.be/book/users/anonymization.html#id2
      *
      * @param  string  $uuid  entity UUID
      * @param OrthancReplaceOptions Data to be replaced
+     * @return bool true if successfull, false if not found
      */
-    public function anonymize(string $uuid, OrthancReplaceOptions $options = new OrthancReplaceOptions()): void
+    public function anonymize(string $uuid, OrthancReplaceOptions $options = new OrthancReplaceOptions()): bool
     {
         $response = $this->accessor->getClient()
             ->post("{$this->entityName}/$uuid/anonymize", $options->getData());
 
-        $response->throw();
+        return $this->handle404Response($response);
     }
 
     /**
      * Delete an entity from the server.
      *
      * @param  string  $uuid  entity UUID
+     * @return bool true if successfull, false if not found
      */
-    public function delete(string $uuid): void
+    public function delete(string $uuid): bool
     {
         $response = $this->accessor->getClient()
             ->delete("{$this->entityName}/$uuid");
 
-        $response->throw();
+        return $this->handle404Response($response);
     }
 
     /**
